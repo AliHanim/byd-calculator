@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0A0E14;
+    --bg:#0B1018;
     --panel:#111820;
     --panel-2:#182230;
     --line:#243040;
@@ -19,8 +19,21 @@
     --accent-soft:#2E6FF233;
     --accent-2:#33E0C8;
     --danger:#F2664B;
+    --surface:#111A24;
+    --surface-strong:#1C2633;
     --radius:14px;
     --brand-name:"BYD";
+  }
+  [data-theme="light"]{
+    --bg:#EEF2F6;
+    --panel:#F9FBFD;
+    --panel-2:#F2F5F8;
+    --line:#D6DEE7;
+    --text:#1A2430;
+    --muted:#5E6B77;
+    --muted-2:#7A8794;
+    --surface:#F4F7FA;
+    --surface-strong:#FFFFFF;
   }
   [data-brand="DENZA"]{
     --accent:#C9A467;
@@ -31,14 +44,14 @@
   html,body{margin:0;padding:0;}
   body{
     background:
-      radial-gradient(1100px 600px at 85% -10%, var(--accent-soft), transparent 60%),
-      radial-gradient(900px 500px at -10% 110%, #2E6FF215, transparent 60%),
-      var(--bg);
+      radial-gradient(900px 500px at 90% -10%, var(--accent-soft), transparent 55%),
+      radial-gradient(700px 450px at 0% 100%, rgba(46,111,242,.08), transparent 60%),
+      linear-gradient(180deg, var(--bg), color-mix(in srgb, var(--bg) 88%, black));
     color:var(--text);
     font-family:'Inter',sans-serif;
     min-height:100vh;
     padding:28px 20px 60px;
-    transition:background 0.6s ease;
+    transition:background .5s ease,color .3s ease;
   }
   .wrap{max-width:1180px;margin:0 auto;}
 
@@ -66,13 +79,20 @@
   }
   .brand-toggle button.active{background:var(--accent);color:#08101c;box-shadow:0 4px 16px var(--accent-soft);}
 
+  .theme-switch{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none;}
+  .theme-icon{font-size:14px;color:var(--muted);line-height:1;}
+
   /* LAYOUT */
   .grid{display:grid;grid-template-columns:340px 1fr;gap:20px;}
   @media (max-width:880px){.grid{grid-template-columns:1fr;}}
 
   .panel{
-    background:linear-gradient(180deg, var(--panel), var(--panel-2));
-    border:1px solid var(--line);border-radius:var(--radius);padding:20px;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px;
+    backdrop-filter:blur(14px);
+    box-shadow:0 12px 35px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.04);
   }
   .panel h2{
     font-family:'Space Grotesk',sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.1em;
@@ -84,25 +104,25 @@
   }
   .src-badge.live{background:#1E3A2E;color:#5FD98A;}
   .src-badge.offline{background:#3A2A1E;color:#E0A65F;}
-  .src-badge.loading{background:#1A2530;color:var(--muted);}
+  .src-badge.loading{background:var(--surface);color:var(--muted);border:1px solid var(--line);}
 
   .model-single{display:flex;flex-direction:column;}
   .active-card{
     margin-top:20px;padding:16px;border:1px solid var(--accent);border-radius:12px;
-    background:linear-gradient(135deg,var(--accent-soft),#0D141C);
+    background:linear-gradient(135deg,var(--accent-soft),var(--surface));
   }
   .active-name{
     font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;color:var(--accent-2);
     margin-bottom:8px;
   }
   .active-img-wrap{
-    width:100%;height:150px;border-radius:9px;background:#0A0F14;border:1px solid var(--line);
+    width:100%;height:150px;border-radius:9px;background:var(--surface-strong);border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:12px;
   }
   .active-img{width:100%;height:100%;object-fit:contain;padding:6px;}
   .active-img-fallback{font-size:11px;color:var(--muted-2);font-family:'JetBrains Mono',monospace;}
   .variant-select{
-    width:100%;background:#0D141C;border:1px solid var(--line);color:var(--text);
+    width:100%;background:var(--surface);border:1px solid var(--line);color:var(--text);
     padding:9px 10px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:12.5px;
     cursor:pointer;transition:border-color .15s ease;appearance:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238493A3'/%3E%3C/svg%3E");
@@ -133,15 +153,15 @@
   }
   input[type=range]::-webkit-slider-thumb{
     -webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(--accent);
-    cursor:pointer;border:3px solid #0A0E14;box-shadow:0 0 0 1px var(--accent);
+    cursor:pointer;border:3px solid var(--bg);box-shadow:0 0 0 1px var(--accent);
   }
   .num-input{
-    width:100%;background:#0D141C;border:1px solid var(--line);color:var(--text);
+    width:100%;background:var(--surface);border:1px solid var(--line);color:var(--text);
     padding:10px 12px;border-radius:8px;font-family:'JetBrains Mono',monospace;font-size:14px;
   }
   .num-input:focus{outline:none;border-color:var(--accent);}
   .toggle-row{display:flex;align-items:center;justify-content:space-between;
-    background:#0D141C;border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
   .toggle-row .t-label{font-size:13px;color:var(--text);font-weight:500;}
   .toggle-row .t-sub{font-size:11px;color:var(--muted);margin-top:2px;}
   .switch{position:relative;width:42px;height:24px;flex-shrink:0;}
@@ -155,25 +175,25 @@
   .dash{display:grid;grid-template-columns:220px 1fr;gap:22px;margin-top:22px;}
   @media (max-width:640px){.dash{grid-template-columns:1fr;}}
   .gauge-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;
-    background:#0D141C;border:1px solid var(--line);border-radius:12px;padding:18px 10px;}
+    background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 10px;}
   .gauge-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-top:8px;}
   .gauge-value{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;color:var(--accent-2);margin-top:2px;}
   .gauge-sub{font-size:11px;color:var(--muted-2);margin-top:4px;}
 
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
   @media (max-width:420px){.stat-grid{grid-template-columns:1fr;}}
-  .stat{background:#0D141C;border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
   .stat .s-label{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;letter-spacing:.05em;text-transform:uppercase;}
   .stat .s-val{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;margin-top:6px;}
-  .stat.hl{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-soft),#0D141C);}
+  .stat.hl{border-color:var(--accent);background:linear-gradient(135deg,var(--accent-soft),var(--surface));}
   .stat.hl .s-val{color:var(--accent-2);}
 
   /* battery bar */
   .battery{margin-top:22px;}
   .battery .b-top{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:8px;}
-  .b-track{height:26px;border-radius:6px;background:#0D141C;border:1px solid var(--line);overflow:hidden;display:flex;position:relative;}
+  .b-track{height:26px;border-radius:6px;background:var(--surface);border:1px solid var(--line);overflow:hidden;display:flex;position:relative;}
   .b-fill-dp{height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));transition:width .3s ease;}
-  .b-fill-loan{height:100%;background:repeating-linear-gradient(135deg,#243040,#243040 6px,#1A2530 6px,#1A2530 12px);flex:1;}
+  .b-fill-loan{height:100%;background:repeating-linear-gradient(135deg,var(--line),var(--line) 6px,var(--surface) 6px,var(--surface) 12px);flex:1;}
   .b-legend{display:flex;gap:18px;margin-top:10px;font-size:11.5px;color:var(--muted);}
   .b-legend span{display:inline-flex;align-items:center;gap:6px;}
   .b-dot{width:9px;height:9px;border-radius:2px;}
@@ -189,13 +209,23 @@
 
   <header>
     <div class="h-left">
-      <div class="eyebrow"><span class="dot"></span> BUILD YOUR DREAMS (BYD Malaysia) </div>
+      <div class="eyebrow"><span class="dot"></span> BYD MALAYSIA · BUILD YOUR DREAMS </div>
       <h1>Financing <span>Estimator</span></h1>
       <p>Hire-purchase instalment calculator for the BYD and DENZA Malaysia lineup — built on current OTR pricing.</p>
     </div>
-    <div class="brand-toggle">
-      <button id="btnBYD" class="active" onclick="setBrand('BYD')">BYD</button>
-      <button id="btnDENZA" onclick="setBrand('DENZA')">DENZA</button>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="brand-toggle">
+        <button id="btnBYD" class="active" onclick="setBrand('BYD')">BYD</button>
+        <button id="btnDENZA" onclick="setBrand('DENZA')">DENZA</button>
+      </div>
+      <label class="theme-switch" title="Toggle light / dark mode">
+        <span class="theme-icon">☾</span>
+        <span class="switch">
+          <input type="checkbox" id="themeToggle" onchange="onThemeToggle()">
+          <span class="slider-toggle"></span>
+        </span>
+        <span class="theme-icon">☀</span>
+      </label>
     </div>
   </header>
 
@@ -290,28 +320,17 @@
             <div class="chip-note" id="ncdNote">after NCD, before add-ons</div>
           </div>
         </div>
-
-        <div class="toggle-row">
-          <div>
-            <div class="t-label">Finance insurance premium</div>
-            <div class="t-sub" id="insSub">Roll basic premium into the loan</div>
-          </div>
-          <label class="switch">
-            <input type="checkbox" id="financeIns" onchange="onInput()">
-            <span class="slider-toggle"></span>
-          </label>
-        </div>
       </div>
 
       <!-- DASHBOARD -->
       <div class="dash">
         <div class="gauge-wrap">
           <svg width="150" height="150" viewBox="0 0 150 150">
-            <circle cx="75" cy="75" r="62" fill="none" stroke="#1A2530" stroke-width="12"/>
+            <circle cx="75" cy="75" r="62" fill="none" style="stroke:var(--line)" stroke-width="12"/>
             <circle id="gaugeArc" cx="75" cy="75" r="62" fill="none" stroke="var(--accent)" stroke-width="12"
               stroke-linecap="round" stroke-dasharray="389.6" stroke-dashoffset="389.6"
               transform="rotate(-90 75 75)" style="transition:stroke-dashoffset .5s ease"/>
-            <text x="75" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#8493A3">RM / month</text>
+            <text x="75" y="70" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" style="fill:var(--muted)">RM / month</text>
           </svg>
           <div class="gauge-value" id="gaugeValue">RM 0</div>
           <div class="gauge-sub" id="gaugeSub">est. monthly instalment</div>
@@ -325,6 +344,7 @@
           <div class="stat">
             <div class="s-label">Amount financed</div>
             <div class="s-val" id="statFinanced">RM 0</div>
+            <div class="chip-note" style="margin-top:4px;">rounded down to nearest RM100</div>
           </div>
           <div class="stat">
             <div class="s-label">Total interest</div>
@@ -337,6 +357,7 @@
           <div class="stat">
             <div class="s-label">Down payment</div>
             <div class="s-val" id="statDP">RM 0</div>
+            <div class="chip-note" style="margin-top:4px;">Total OTR − amount financed</div>
           </div>
           <div class="stat">
             <div class="s-label">OTR price used</div>
@@ -347,8 +368,9 @@
             <div class="s-val" id="statPremium">RM 0</div>
           </div>
           <div class="stat hl">
-            <div class="s-label">OTR + insurance premium</div>
+            <div class="s-label">Total OTR</div>
             <div class="s-val" id="statOTRPlusIns">RM 0</div>
+            <div class="chip-note" style="margin-top:4px;">OTR + insurance − total promotion</div>
           </div>
         </div>
       </div>
@@ -361,7 +383,7 @@
         </div>
         <div class="b-legend">
           <span><i class="b-dot" style="background:var(--accent-2)"></i> Down payment</span>
-          <span><i class="b-dot" style="background:#243040"></i> Financed (bank)</span>
+          <span><i class="b-dot" style="background:var(--line)"></i> Financed (bank)</span>
         </div>
       </div>
 
@@ -539,10 +561,6 @@ function onInput(){
   const applyRebate = document.getElementById('rebateSelect').value === 'full' && selected.REBATE>0;
   const ncdVal = document.getElementById('ncd').value;
   const ownInsurance = ncdVal === 'own';
-  const financeInsEl = document.getElementById('financeIns');
-  financeInsEl.disabled = ownInsurance;
-  if(ownInsurance) financeInsEl.checked = false;
-  const financeIns = financeInsEl.checked;
 
   // net premium after NCD (0 if the customer arranges their own insurance)
   const ncdPct = ownInsurance ? 0 : parseFloat(ncdVal);
@@ -550,11 +568,8 @@ function onInput(){
 
   document.getElementById('netPremiumLabel').textContent = ownInsurance ? 'n/a' : fmt(netPremium);
   document.getElementById('ncdNote').textContent = ownInsurance
-    ? 'customer arranges own cover — excluded from this loan'
+    ? 'customer arranges own cover — excluded from Total OTR'
     : `${(ncdPct*100).toFixed(2)}% NCD off ${fmt(selected.BASIC_PREMIUM)} basic premium`;
-  document.getElementById('insSub').textContent = ownInsurance
-    ? 'Not applicable — own insurance selected'
-    : `Net premium after NCD: ${fmt(netPremium)}`;
 
   const baseRebate = applyRebate ? selected.REBATE : 0;
   const extraRebate = Math.max(parseFloat(document.getElementById('extraRebate').value) || 0, 0);
@@ -564,10 +579,17 @@ function onInput(){
     `${fmt(baseRebate)} promo + ${fmt(extraRebate)} additional = ${fmt(rebateAmt)} total`;
   document.getElementById('activePrice').innerHTML =
     `<span>OTR</span><span>${fmt(otr)}${rebateAmt>0?'<span class="rebate-tag">-'+fmt(rebateAmt)+'</span>':''}</span>`;
-  const priceAfterRebate = Math.max(otr - rebateAmt, 0);
-  const dpAmount = priceAfterRebate * (dpPct/100);
-  let financed = priceAfterRebate - dpAmount;
-  if(financeIns && !ownInsurance) financed += netPremium;
+
+  // Total OTR = OTR (w/o insurance) + insurance premium − total promotion
+  const totalOTR = Math.max(otr + (ownInsurance ? 0 : netPremium) - rebateAmt, 0);
+
+  // down payment % slider gives a target; amount financed is then rounded
+  // DOWN to the nearest RM100, and down payment absorbs the rounding difference
+  // so that: down payment = Total OTR − amount financed, always exactly.
+  const dpTarget = totalOTR * (dpPct/100);
+  const financedRaw = totalOTR - dpTarget;
+  const financed = Math.max(Math.floor(financedRaw/100)*100, 0);
+  const dpAmount = totalOTR - financed;
 
   const totalInterest = financed * rate * tenureYears;
   const totalRepay = financed + totalInterest;
@@ -587,7 +609,7 @@ function onInput(){
   document.getElementById('statDP').textContent = fmt(dpAmount);
   document.getElementById('statOTR').textContent = fmt(otr);
   document.getElementById('statPremium').textContent = ownInsurance ? 'own insurance' : fmt(netPremium);
-  document.getElementById('statOTRPlusIns').textContent = fmt(otr + (ownInsurance ? 0 : netPremium));
+  document.getElementById('statOTRPlusIns').textContent = fmt(totalOTR);
 
   document.getElementById('gaugeValue').textContent = fmt(monthly);
 
@@ -601,6 +623,11 @@ function onInput(){
   const dpBarPct = Math.min(Math.max(dpPct,0),100);
   document.getElementById('battFillDP').style.width = dpBarPct + '%';
   document.getElementById('battPct').textContent = `${dpPct}% / ${100-dpPct}%`;
+}
+
+function onThemeToggle(){
+  const isLight = document.getElementById('themeToggle').checked;
+  document.body.setAttribute('data-theme', isLight ? 'light' : 'dark');
 }
 
 // init
